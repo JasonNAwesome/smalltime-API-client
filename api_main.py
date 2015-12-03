@@ -2,7 +2,7 @@
 import sys, time, string
 import urllib.request
 
-print('Welcome to the simple CLI Bitcoin API.')
+print('--- Welcome to the simple CLI Bitcoin API ---')
 
 def _main():
 
@@ -18,22 +18,24 @@ def _main():
 # Receives Bitcoin Market & Currency
 def _user_input():
 
-    currency_names = ("KRW","NMC","IDR","RON","ARS","AUD",
+    '''currency_names = ("KRW","NMC","IDR","RON","ARS","AUD",
                     "BGN","BRL","BTC","CAD","CHF","CLP",
                     "CNY","CZK","DKK","EUR","GAU","GBP",
                     "HKD","HUF","ILS","INR","JPY","LTC",
                     "MXN","NOK","NZD","PEN","PLN","RUB",
                     "SAR","SEK","SGD","SLL","THB","UAH",
                     "USD","XRP","ZAR")
+    '''
 
-    market_names = ("bitfinex","bitstamp","btce","itbit","anxhk",
-                    "hitbtc","kraken","bitkonan","bitbay","rock",
-                    "cbx","cotr","vcx")
+    market_names = ("bitfinex","bitstamp","btce","itbit","anxhk")
 
-    print(market_names)
+    for i in range(0,len(market_names)):
+        print("-----", market_names[i])
     user_input_market = input('Please choose a Bitcoin market from one above: ')
-    print(currency_names)
-    user_input_currency = input('Please choose a currency from one above: ')
+    #print(currency_names)
+    #user_input_currency = input('Please choose a currency from one above: ')
+    # API doesn't support currency anymore
+    user_input_currency = "USD"
 
     input_data = (user_input_market, user_input_currency)
     return input_data
@@ -46,15 +48,16 @@ def _get_request(user_tuple, site_url):
 
     # Now the long csv file is loaded
     # 41 is the magic number for one line
-    bitcoin_price = urllib.request.urlopen(site_url).read(41)
+    bitcoin_string = urllib.request.urlopen(site_url).read(41)
 
-    categories = ("Time |", "Price|", "Trade Amount|")
+    categories = ("Time : ", "Price: ", "Trade: ")
 
     #This is where printing the UNIX epoch time, Price, & Trade amount go
-    bitcoin_price = bitcoin_price.decode("utf-8").split(',')
-    print(categories[0], time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(int(bitcoin_price[0]))))
+    bitcoin_string = bitcoin_string.decode("utf-8").split(',')
+    print(categories[0], time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(int(bitcoin_string[0]))))
     for i in range(1,len(categories)):
-        print(categories[i], bitcoin_price[i])
+        # str then float to rid myself of the scourge that is trailing zeroes
+        print(categories[i], str(float(bitcoin_string[i])))
 
 if __name__ == '__main__':
     _main()
