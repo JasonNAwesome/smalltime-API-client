@@ -2,7 +2,7 @@
 import sys, time, string
 import urllib.request
 
-print('--- Welcome to the simple CLI Bitcoin API ---')
+print('--- Welcome to the CLI bitcoincharts Price-Checker ---')
 
 def _main():
 
