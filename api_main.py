@@ -54,7 +54,9 @@ def _get_request(user_tuple, site_url):
 
     #This is where printing the UNIX epoch time, Price, & Trade amount go
     bitcoin_string = bitcoin_string.decode("utf-8").split(',')
-    print(categories[0], time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(int(bitcoin_string[0]))))
+    print(categories[0], 
+          time.strftime('%Y-%m-%d %H:%M:%S', 
+          time.localtime(int(bitcoin_string[0]))))
     for i in range(1,len(categories)):
         # str then float to rid myself of the scourge that is trailing zeroes
         print(categories[i], str(float(bitcoin_string[i])))
