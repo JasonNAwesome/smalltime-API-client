@@ -1,30 +1,38 @@
 #!/usr/bin/env python3
 import curses, sys
 
-screen = curses.initscr()
+def param_get(_output_string):
+    stdscr.erase()
+    stdscr.border(0)
+    stdscr.addstr(2,2,_output_string)
+
+stdscr = curses.initscr()
+curses.noecho()
+curses.cbreak()
 curses.start_color()
+WHITE = curses.COLOR_WHITE
+BLUE = curses.COLOR_BLUE
+curses.init_pair(1, WHITE, BLUE)
+curses.curs_set(0)
+stdscr.attron(curses.color_pair(1))
+stdscr.getch()
 
 
-screen.clear
-screen.border(0)
-screen.addstr(3,3,"Choose a choice:")
-screen.addstr(5,5,"1) RA RA RA")
-screen.addstr(6,5,"2) Prooal and alks")
-screen.refresh()
+stdscr.clear
+stdscr.border(0)
+stdscr.addstr(3,3,"Choose a choice:")
+stdscr.addstr(5,5,"1) RA RA RA")
+stdscr.addstr(6,5,"2) Prooal and alks")
+stdscr.refresh()
 
-n = screen.getch()
+n = stdscr.getch()
 
 if n == ord('1'):
-    screen.clear
-    screen.refresh()
-    screen.border(0)
-    screen.addstr(2,2,"Wow you said RA")
+    param_get("Wow you said RA")
 elif n == ord('2'):
-    screen.clear
-    screen.refresh()
-    screen.border(0)
-    screen.addstr(2,2,"Yes.")
+    param_get("Yes")
 
-screen.getch()
+stdscr.getch()
 
 curses.endwin()
+sys.exit()
