@@ -10,3 +10,6 @@ class Screen(object):
     def getch(self):
         return self.stdscr.getch
 
+    def addstr(self, y, x, phrase):
+        stdscr.addstr(y,x,phrase)
+
