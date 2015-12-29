@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import sys, time, string
 import urllib.request
+from term import *
 
 print('--- Welcome to the CLI bitcoincharts Price-Checker ---')
 
